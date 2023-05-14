@@ -1,4 +1,6 @@
-### Проект YaMDb 
+### Проект YaMDb
+
+![example workflow](https://github.com/atar1boy/yamdb_final/actions/workflows/yamdb_workflow.yml/badge.svg)
 
 ## Сервис позволяющий пользователям оценивать и писать свои рецензии на любые категории творчества
 
