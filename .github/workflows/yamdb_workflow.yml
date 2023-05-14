@@ -58,7 +58,7 @@ jobs:
       uses: docker/build-push-action@v2 
       with:
         push: true
-        tags: nvkovalev/api_yamdb:latest
+        tags: nvkovalev/api_yamdb:v1
     - name: Send message if build_and_push_to_docker_hub failed
       if: ${{ failure() }}
       uses: appleboy/telegram-action@master
