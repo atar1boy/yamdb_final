@@ -118,6 +118,7 @@ class ReviewsSerializer(serializers.ModelSerializer):
             title_pk=self.request.data['title_id']
         ).exists():
             return Response({'Ошибка': "Title не найден"})
+        return None
 
     def validate_dup(self, request, data):
         if Review.objects.get(

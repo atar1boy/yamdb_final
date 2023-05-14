@@ -81,17 +81,16 @@ class UserRegView(APIView):
                 )
             send_confirmation_code(user)
             return Response(serializer.initial_data, status=status.HTTP_200_OK)
-        else:
-            if serializer.is_valid():
-                user, created = User.objects.update_or_create(
-                    **serializer.validated_data
-                )
-                send_confirmation_code(user)
-                return Response(serializer.data, status=status.HTTP_200_OK)
-            return Response(
-                serializer.errors,
-                status=status.HTTP_400_BAD_REQUEST
+        if serializer.is_valid():
+            user, created = User.objects.update_or_create(
+                **serializer.validated_data
             )
+            send_confirmation_code(user)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(
+            serializer.errors,
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 @permission_classes([AllowAny])
@@ -132,9 +131,8 @@ class CommentViewSet(ModelViewSet):
     ]
 
     def get_queryset(self):
-        queryset = Comment.objects.filter(
+        return Comment.objects.filter(
             review_id=self.kwargs['review_id'])
-        return queryset
 
     def perform_create(self, serializer):
         review = get_object_or_404(Review, id=self.kwargs['review_id'])
