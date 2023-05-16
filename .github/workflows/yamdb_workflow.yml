@@ -20,10 +20,13 @@ jobs:
         pip install flake8 pep8-naming flake8-broken-line flake8-return
         pip install -r api_yamdb/requirements.txt 
 
-    - name: Test with flake8 and django tests
+    - name: Test with flake8
       run: |
         python -m flake8
-        # pytest
+
+    - name: Django tests
+      run: |
+        pytest
 
     - name: Send message if Tests failed
       if: ${{ failure() }}
@@ -91,6 +94,8 @@ jobs:
             echo DB_HOST=${{ secrets.DB_HOST }} >> .env
             echo DB_PORT=${{ secrets.DB_PORT }} >> .env
             sudo docker-compose up -d
+            docker system prune
+            y
 
     - name: send message
       uses: appleboy/telegram-action@master
